@@ -18,7 +18,8 @@ Product.belongsToMany(Tag, {
     model: ProductTag,
     unique: false
   },
-  as: 'product_tag'
+  // The alias below has to be unique (i.e. I can't name it the same alias that I named the Tag.belongsToMany(Product) because that will lead to a sequelize error due to it not knowing which alias belongs to which association. 
+  as: 'products_tags'
 })
 
 Tag.belongsToMany(Product, {
@@ -26,7 +27,7 @@ Tag.belongsToMany(Product, {
     model: ProductTag,
     unique: false
   },
-  as: 'product_tag'
+  as: 'tags_products'
 })
 
 module.exports = {
