@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const tagData = await Tag.findByPk({
+    const tagData = await Tag.findByPk(req.params.id, { 
       include: [{ model: Product, through: ProductTag, as: 'product_tag'}]
     })
     if (!tagData) {
@@ -66,7 +66,7 @@ router.delete('/:id', async (req, res) => {
     }
     res.status(200).json(tagData)
   } catch (err) {
-    res.status(500).json(tagData)
+    res.status(500).json(err)
   }
 });
 
