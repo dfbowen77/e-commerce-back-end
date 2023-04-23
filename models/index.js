@@ -14,20 +14,13 @@ Category.hasMany(Product, {
 })
 
 Product.belongsToMany(Tag, {
-  through: {
-    model: ProductTag,
-    unique: false
-  },
-  // The alias below has to be unique (i.e. I can't name it the same alias that I named the Tag.belongsToMany(Product) because that will lead to a sequelize error due to it not knowing which alias belongs to which association. 
-  as: 'products_tags'
+  through: ProductTag,
+  foreignKey: 'product_id',
 })
 
 Tag.belongsToMany(Product, {
-  through: {
-    model: ProductTag,
-    unique: false
-  },
-  as: 'tags_products'
+  through: ProductTag,
+  foreignKey: 'tag_id',
 })
 
 module.exports = {
