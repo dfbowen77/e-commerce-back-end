@@ -5,8 +5,8 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 router.get('/', async (req, res) => {
   try {
+    // Here we create a variable called tagData that finds all rows and variables in the Tag dataset/table and then joins them with the Product model.
     const tagData = await Tag.findAll({
-      // include: [{ model: Product, through: ProductTag, as: 'tags_products'}]
       include: [{ model: Product}]
     })
     res.status(200).json(tagData)
@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
+    // Here we create a variable called tagData that finds one row in the Tag dataset/table and then joins it with the Product model.
     const tagData = await Tag.findByPk(req.params.id, { 
-      // include: [{ model: Product, through: ProductTag, as: 'tags_products'}]
       include: [{ model: Product}]
     })
     if (!tagData) {
@@ -32,6 +32,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    // Here a new row of Tag data is created based on user input. The user input comes from the req.body, which is intuitively... the body of the request. 
     const tagData = await Tag.create(req.body) 
     res.status(200).json(tagData)
 
@@ -42,6 +43,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
+    // Here a specific row in the Tag dataset is updated based on user input, which again, is coming from the req.body object.
     const tagData = await Tag.update(req.body, {
       where: {
         id: req.params.id
@@ -58,6 +60,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
+    // Here we delete a specific row of data in the Tag dataset based on user input.
     const tagData = await Tag.destroy({
       where: {
         id: req.params.id

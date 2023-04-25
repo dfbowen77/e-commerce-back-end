@@ -20,8 +20,10 @@ Product.init(
       allowNull: false,
     },
     price: {
+      // The decimal data type ensures that the value can have 10 total digits and 2 digits reserved for decimal places to the right of a period. 
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
+      // validated whether the price value is consistent with the requirements of being a decimal data type. 
       validate: {
         isDecimal: true,
       },
@@ -29,13 +31,16 @@ Product.init(
     stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      // sets the default value of stock to 10
       defaultValue: 10,
+      // ensures that whatever value exists in stock is numeric.
       validate: {
         isNumeric: true,
       }
     },
     category_id: {
       type: DataTypes.INTEGER,
+      // tells the database that category_id references category model and its variable id
       references: {
         model: 'category',
         key: 'id',
