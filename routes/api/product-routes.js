@@ -6,8 +6,8 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', async (req, res) => {
   try {
+    // Here we create a variable called productData that finds all rows and variables in the Product dataset/table and then joins it with both the Category and Tag models.
     const productData = await Product.findAll({
-      // include: [{model: Category}, {model: Tag, through: ProductTag, as: 'products_tags'}]
       include: [{model: Category}, {model: Tag}]
     })
     res.status(200).json(productData)
@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
 // get one product
 router.get('/:id', async (req, res) => {
   try {
+    // Here we create a variable called productData that finds one row in the category dataset with all its variables and then joins it with both the Category and Tag models.
     const productData = await Product.findByPk(req.params.id, {
       include: [{ model: Category}, {model: Tag}]
     })
@@ -101,13 +102,13 @@ router.put('/:id', (req, res) => {
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
-      // console.log(err);
       res.status(400).json(err);
     });
 });
 
 router.delete('/:id', async (req, res) => {
   try {
+    // Here we delete a specific row of data in the Product dataset based on user input.
     const productData = await Product.destroy({
       where: {
        id: req.params.id
